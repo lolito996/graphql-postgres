@@ -15,45 +15,52 @@ export class UsersService {
   ){}
 
 
-  async create(signupInput: SignupInput) {
-    try{
-      const newUser = this.userRepository.create({
+    async create( signupInput: SignupInput ): Promise<User> {
+    try {
+
+      const newUser = this.userRepository.create({ 
         ...signupInput,
-        password: bcrypt.hashSync(signupInput.password, 10)
-      })
-      return await this.userRepository.save(newUser);
-    }catch(error){
-      this.handleExceptions(error);
-    }
+        password: bcrypt.hashSync( signupInput.password, 10 )
+       });
 
-  }
+      return await this.userRepository.save( newUser ); 
 
-  async findOneByEmail(email: string): Promise<User> {
-    try {
-      return await this.userRepository.findOneByOrFail({email})
     } catch (error) {
-      throw new NotFoundException(`${email} not found`);
+      this.handleDBErrors(error);
     }
   }
 
-  async findOneById(id: string) {
+
+  async findOneByEmail( email: string ): Promise<User> {
+   
     try {
-      return await this.userRepository.findOneByOrFail({id})
+      return await this.userRepository.findOneByOrFail({ email })
     } catch (error) {
-      throw new NotFoundException(`${id} not found`);
+      throw new NotFoundException(`${ email } not found`);
     }
+
   }
 
-   private handleExceptions(error: any){
-    if(error.code === "23505")
-      throw new BadRequestException(error.detail);
-
-    if(error.code === 'error-001'){
-      throw new BadRequestException(error.detail);
+  async findOneById( id: string ): Promise<User> {
+   
+    try {
+      return await this.userRepository.findOneByOrFail({ id })
+    } catch (error) {
+      throw new NotFoundException(`${ id } not found`);
     }
 
-    this.logger.error(error.detail);
-    throw new InternalServerErrorException('Unspected error, check your server');
+  }
+
+  private handleDBErrors( error: any ): never{
+    if( error.code === '23505' ){
+      throw new BadRequestException(error.detail.replace('Key', ''));
+    }
+
+    if( error.code == 'error-001' ){
+      throw new BadRequestException(error.detail.replace('Key', ''));
+    }
+    this.logger.error( error );
+    throw new InternalServerErrorException('Please check server logs');
   }
 
 }
