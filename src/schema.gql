@@ -15,13 +15,33 @@ type AuthReponse {
   token: String!
 }
 
+type Movie {
+  id: ID!
+  title: String!
+  genre: String!
+  director: String!
+  duration: Int!
+  description: String!
+  language: String!
+  status: String!
+  classification: String!
+  salesCount: Int
+  totalSalesValue: Float
+}
+
 type Query {
-  user(id: Int!): User!
+  user(id: String!): User
+  userByEmail(email: String!): User
+  findAllMovies: [Movie!]!
+  findMovieByTitle(title: String!): Movie!
 }
 
 type Mutation {
   signup(signInput: SignupInput!): AuthReponse!
   login(loginInput: LoginInput!): AuthReponse!
+  createUser(signupInput: SignupInput!): User!
+  createMovie(createMovieInput: CreateMovieInput!): Movie!
+  updateMovieByTitle(title: String!, updateMovieInput: UpdateMovieInput!): Movie!
 }
 
 input SignupInput {
@@ -33,4 +53,30 @@ input SignupInput {
 input LoginInput {
   email: String!
   password: String!
+}
+
+input CreateMovieInput {
+  title: String!
+  genre: String!
+  director: String!
+  duration: Int!
+  description: String!
+  language: String!
+  status: String!
+  classification: String!
+  salesCount: Int
+  totalSalesValue: Float
+}
+
+input UpdateMovieInput {
+  title: String
+  genre: String
+  director: String
+  duration: Int
+  description: String
+  language: String
+  status: String
+  classification: String
+  salesCount: Int
+  totalSalesValue: Float
 }

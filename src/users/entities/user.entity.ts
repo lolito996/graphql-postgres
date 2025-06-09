@@ -23,7 +23,7 @@ export class User {
   @Column({
     type: 'text',
     array: true,
-    default: ['teacher']
+    default: ['client']
   })
   @Field(() => [ String ])
   roles:string[];
