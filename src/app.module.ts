@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { MoviesModule } from './movies/movies.module';
 import { FunctionModule } from './functions/function.module';
+import { TheatresModule } from './theatre/theatre.module';
 
 @Module({
   imports: [
@@ -32,7 +33,8 @@ import { FunctionModule } from './functions/function.module';
     AuthModule,
     UsersModule,
     MoviesModule,
-    FunctionModule
+    FunctionModule,
+    TheatresModule
   ],
   controllers: [],
   providers: [],
