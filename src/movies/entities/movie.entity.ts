@@ -1,5 +1,7 @@
 import { ObjectType, Field, ID, Int, Float } from '@nestjs/graphql';
 import { Entity, PrimaryGeneratedColumn, Column, Unique } from 'typeorm';
+import { OneToMany } from 'typeorm';
+import { FunctionEntity } from '../../functions/entities/function.entity';
 
 @Entity({ name: 'movies'})
 @ObjectType()
@@ -47,4 +49,9 @@ export class Movie {
   @Column('decimal', { precision: 12, scale: 2, nullable: true })
   @Field(() => Float, { nullable: true })
   totalSalesValue?: number;
+
+  @OneToMany(() => FunctionEntity, (func) => func.movie)
+@Field(() => [FunctionEntity], { nullable: true })
+functions?: FunctionEntity[];
+
 }
