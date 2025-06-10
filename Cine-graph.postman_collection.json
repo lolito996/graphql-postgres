@@ -1,0 +1,513 @@
+{
+	"info": {
+		"_postman_id": "cd9abbcb-57cc-467b-b4f4-809a49ccb657",
+		"name": "Cine-graph",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38506273"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation CreateUser($signupInput: SignupInput!) {\n  createUser(signupInput: $signupInput) {\n    ...UserFields\n  }\n}\n\nfragment UserFields on User {\n  id\n  fullName\n  email\n  roles\n  isActive\n}\n",
+								"variables": "{\n  \"signupInput\": {\n    \"fullName\": \"prueba para delete user\",\n    \"email\": \"delete@example.com\",\n    \"password\": \"delete\"\n  }\n}\n"
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}",
+							"host": [
+								"{{baseURL}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Braintree-Version",
+								"value": "2023-09-28"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query GetUser($id: String!) {\n  user(id: $id) {\n    ...UserFields\n  }\n}\n\nfragment UserFields on User {\n  id\n  fullName\n  email\n  roles\n  isActive\n}",
+								"variables": "{\n  \"id\": \"436ddad8-58ca-467d-b923-cce98363fa64\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}",
+							"host": [
+								"{{baseURL}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNmRkYWQ4LTU4Y2EtNDY3ZC1iOTIzLWNjZTk4MzYzZmE2NCIsImlhdCI6MTc0OTU5MDYwMywiZXhwIjoxNzQ5NjA1MDAzfQ.tZ1UCNFMZrBBnUbezNhF8adM9_1MKJ5fLQjxBTI3dxg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query GetAllUsers {\n  users {\n    ...UserFields\n  }\n}\n\nfragment UserFields on User {\n  id\n  fullName\n  email\n  roles\n  isActive\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{Prueba}}",
+							"host": [
+								"{{Prueba}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNmRkYWQ4LTU4Y2EtNDY3ZC1iOTIzLWNjZTk4MzYzZmE2NCIsImlhdCI6MTc0OTU5MDYwMywiZXhwIjoxNzQ5NjA1MDAzfQ.tZ1UCNFMZrBBnUbezNhF8adM9_1MKJ5fLQjxBTI3dxg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation UpdateUser($id: String!, $signupInput: SignupInput!) {\n  updateUser(id: $id, signupInput: $signupInput) {\n    ...UserFragment\n  }\n}\n\nfragment UserFragment on User {\n  id\n  fullName\n  email\n  roles\n  isActive\n}",
+								"variables": "{\n  \"id\": \"d9e6da62-988d-4bbd-9588-fcebedfe48ae\",\n  \"signupInput\": {\n    \"fullName\": \"Juan P. Actualizado 2 veces\",\n    \"email\": \"juan3332@example.com\",\n    \"password\": \"nuevaclave\"\n  }\n}\n"
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}",
+							"host": [
+								"{{baseURL}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user by email",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNmRkYWQ4LTU4Y2EtNDY3ZC1iOTIzLWNjZTk4MzYzZmE2NCIsImlhdCI6MTc0OTU5MDYwMywiZXhwIjoxNzQ5NjA1MDAzfQ.tZ1UCNFMZrBBnUbezNhF8adM9_1MKJ5fLQjxBTI3dxg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query GetUserByEmail($email: String!) {\n  userByEmail(email: $email) {\n    ...UserFragment\n  }\n}\n\nfragment UserFragment on User {\n  id\n  fullName\n  email\n  roles\n  isActive\n}\n",
+								"variables": "{\n  \"email\": \"juan3332@example.com\"\n}\n"
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}",
+							"host": [
+								"{{baseURL}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation Login($loginInput: LoginInput!) {\n  login(loginInput: $loginInput) {\n    token\n    user {\n      ...UserFragment\n    }\n  }\n}\n\nfragment UserFragment on User {\n  id\n  fullName\n  email\n  roles\n  isActive\n}\n",
+								"variables": "{\n  \"loginInput\": {\n    \"email\": \"admin@example.com\",\n    \"password\": \"admin123\"\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}",
+							"host": [
+								"{{baseURL}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Movies",
+			"item": [
+				{
+					"name": "Create Movie",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNmRkYWQ4LTU4Y2EtNDY3ZC1iOTIzLWNjZTk4MzYzZmE2NCIsImlhdCI6MTc0OTU5MTIxMiwiZXhwIjoxNzQ5NjA1NjEyfQ.IgjjKWkocwru1BXDO_6-WXmEIbMb0-aQ6fvitBKiB4w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation CreateMovie($createMovieInput: CreateMovieInput!) {\n  createMovie(createMovieInput: $createMovieInput) {\n    ...MovieFragment\n  }\n}\n\n# Fragmento reutilizado\nfragment MovieFragment on Movie {\n  id\n  title\n  genre\n  director\n  duration\n  description\n  language\n  status\n  classification\n  salesCount\n  totalSalesValue\n}\n",
+								"variables": "{\n  \"createMovieInput\": {\n    \"title\": \"pirates caribean fragmentss\",\n    \"genre\": \"Sci-Fi\",\n    \"director\": \"Christopher Nolan\",\n    \"duration\": 169,\n    \"description\": \"Space-time exploration\",\n    \"language\": \"English\",\n    \"status\": \"AVAILABLE\",\n    \"classification\": \"PG-13\",\n    \"salesCount\": 0,\n    \"totalSalesValue\": 0\n  }\n}\n"
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}",
+							"host": [
+								"{{baseURL}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all movies",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNmRkYWQ4LTU4Y2EtNDY3ZC1iOTIzLWNjZTk4MzYzZmE2NCIsImlhdCI6MTc0OTU5MTIxMiwiZXhwIjoxNzQ5NjA1NjEyfQ.IgjjKWkocwru1BXDO_6-WXmEIbMb0-aQ6fvitBKiB4w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query FindAllMovies {\n  findAllMovies {\n    ...MovieFragment\n  }\n}\n\nfragment MovieFragment on Movie {\n  id\n  title\n  genre\n  director\n  duration\n  description\n  language\n  status\n  classification\n  salesCount\n  totalSalesValue\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}",
+							"host": [
+								"{{baseURL}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get movie",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNmRkYWQ4LTU4Y2EtNDY3ZC1iOTIzLWNjZTk4MzYzZmE2NCIsImlhdCI6MTc0OTU5MTIxMiwiZXhwIjoxNzQ5NjA1NjEyfQ.IgjjKWkocwru1BXDO_6-WXmEIbMb0-aQ6fvitBKiB4w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query FindMovieByTitle($title: String!) {\n  findMovieByTitle(title: $title) {\n    ...MovieFragment\n  }\n}\n\nfragment MovieFragment on Movie {\n  id\n  title\n  genre\n  director\n  duration\n  description\n  language\n  status\n  classification\n  salesCount\n  totalSalesValue\n}\n",
+								"variables": "{\n  \"title\": \"pirates caribean\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}",
+							"host": [
+								"{{baseURL}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit movie",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNmRkYWQ4LTU4Y2EtNDY3ZC1iOTIzLWNjZTk4MzYzZmE2NCIsImlhdCI6MTc0OTU5MTIxMiwiZXhwIjoxNzQ5NjA1NjEyfQ.IgjjKWkocwru1BXDO_6-WXmEIbMb0-aQ6fvitBKiB4w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation UpdateMovieByTitle($title: String!, $updateMovieInput: UpdateMovieInput!) {\n  updateMovieByTitle(title: $title, updateMovieInput: $updateMovieInput) {\n    ...MovieFragment\n  }\n}\n\nfragment MovieFragment on Movie {\n  id\n  title\n  genre\n  director\n  duration\n  description\n  language\n  status\n  classification\n  salesCount\n  totalSalesValue\n}\n",
+								"variables": "{\n  \"title\": \"pirates caribean fragmentss\",\n  \"updateMovieInput\": {\n    \"description\": \"An updated description\",\n    \"status\": \"Coming Soon\"\n  }\n}\n"
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}",
+							"host": [
+								"{{baseURL}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Theatres",
+			"item": [
+				{
+					"name": "Create Theatre",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNmRkYWQ4LTU4Y2EtNDY3ZC1iOTIzLWNjZTk4MzYzZmE2NCIsImlhdCI6MTc0OTU5MDYwMiwiZXhwIjoxNzQ5NjA1MDAyfQ.SGFX5J3t1C1x_8EaVzR6onSomjQ8L8Sj6Yta7zJTV_k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation CreateTheatre($createTheatreInput: CreateTheatreInput!) {\n  createTheatre(createTheatreInput: $createTheatreInput) {\n    ...TheatreDetails\n  }\n}\n\nfragment TheatreDetails on Theatre {\n  id\n  roomNumber\n  capacity\n  type\n}",
+								"variables": "{\n  \"createTheatreInput\": {\n    \"roomNumber\": 1,\n    \"capacity\": 100,\n    \"type\": \"2D\"\n  }\n}\n"
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}",
+							"host": [
+								"{{baseURL}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find all",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNmRkYWQ4LTU4Y2EtNDY3ZC1iOTIzLWNjZTk4MzYzZmE2NCIsImlhdCI6MTc0OTU5MDYwMiwiZXhwIjoxNzQ5NjA1MDAyfQ.SGFX5J3t1C1x_8EaVzR6onSomjQ8L8Sj6Yta7zJTV_k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n  theatres {\n    ...TheatreDetails\n  }\n}\n\nfragment TheatreDetails on Theatre {\n  id\n  roomNumber\n  capacity\n  type\n}\n\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}",
+							"host": [
+								"{{baseURL}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find one",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNmRkYWQ4LTU4Y2EtNDY3ZC1iOTIzLWNjZTk4MzYzZmE2NCIsImlhdCI6MTc0OTU5MDYwMiwiZXhwIjoxNzQ5NjA1MDAyfQ.SGFX5J3t1C1x_8EaVzR6onSomjQ8L8Sj6Yta7zJTV_k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query GetTheatre($id: String!) {\n  theatre(id: $id) {\n    ...TheatreDetails\n  }\n}\n\nfragment TheatreDetails on Theatre {\n  id\n  roomNumber\n  capacity\n  type\n}\n",
+								"variables": "{\r\n  \"id\": \"f9198a13-633b-4dea-ac43-b7089ff798c0\"\r\n}\r\n"
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}",
+							"host": [
+								"{{baseURL}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update theatre",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNmRkYWQ4LTU4Y2EtNDY3ZC1iOTIzLWNjZTk4MzYzZmE2NCIsImlhdCI6MTc0OTU5MDYwMiwiZXhwIjoxNzQ5NjA1MDAyfQ.SGFX5J3t1C1x_8EaVzR6onSomjQ8L8Sj6Yta7zJTV_k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation UpdateTheatre($updateTheatreInput: UpdateTheatreInput!) {\n  updateTheatre(updateTheatreInput: $updateTheatreInput) {\n    ...TheatreDetails\n  }\n}\n\nfragment TheatreDetails on Theatre {\n  id\n  roomNumber\n  capacity\n  type\n}\n",
+								"variables": "{\r\n  \"updateTheatreInput\": {\r\n    \"id\": \"f9198a13-633b-4dea-ac43-b7089ff798c0\",\r\n    \"roomNumber\": 2,\r\n    \"capacity\": 120,\r\n    \"type\": \"3D\"\r\n  }\r\n}\r\n"
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}",
+							"host": [
+								"{{baseURL}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "https://graphql-postgres-production.up.railway.app/graphql",
+			"type": "string"
+		},
+		{
+			"key": "Prueba",
+			"value": "http://localhost:3000/graphql",
+			"type": "string"
+		}
+	]
+}
