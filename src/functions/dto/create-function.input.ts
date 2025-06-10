@@ -1,16 +1,16 @@
-import { Field, InputType } from '@nestjs/graphql';
+import { Field, InputType, Float } from '@nestjs/graphql';
 
 @InputType()
 export class CreateFunctionInput {
   @Field()
-  movieTitle: string;
+  movieId: string;    // ID de la película
+
+  @Field()
+  theatreId: string;  // ID de la sala
 
   @Field()
   startTime: string;
 
-  @Field()
-  room: string;
-
-  @Field()
+  @Field(() => Float)
   price: number;
 }
