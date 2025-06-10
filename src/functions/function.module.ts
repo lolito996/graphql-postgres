@@ -7,5 +7,6 @@ import { FunctionResolver } from './function.resolver';
 @Module({
   imports: [TypeOrmModule.forFeature([FunctionEntity])],
   providers: [FunctionService, FunctionResolver],
+  exports: [FunctionService],
 })
 export class FunctionModule {}
