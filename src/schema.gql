@@ -37,23 +37,38 @@ type FunctionEntity {
   price: Float!
 }
 
+type Theatre {
+  id: ID!
+  roomNumber: Float!
+  capacity: Float!
+  type: String!
+}
+
 type Query {
   user(id: String!): User
   userByEmail(email: String!): User
+  users: [User!]!
   findAllMovies: [Movie!]!
   findMovieByTitle(title: String!): Movie!
   functions: [FunctionEntity!]!
   function(id: Int!): FunctionEntity!
+  theatres: [Theatre!]!
+  theatre(id: String!): Theatre!
 }
 
 type Mutation {
   signup(signInput: SignupInput!): AuthReponse!
   login(loginInput: LoginInput!): AuthReponse!
   createUser(signupInput: SignupInput!): User!
+  updateUser(id: String!, signupInput: SignupInput!): User!
+  deleteUser(id: String!): User!
   createMovie(createMovieInput: CreateMovieInput!): Movie!
   updateMovieByTitle(title: String!, updateMovieInput: UpdateMovieInput!): Movie!
   createFunction(input: CreateFunctionInput!): FunctionEntity!
   updateFunction(input: UpdateFunctionInput!): FunctionEntity!
+  createTheatre(createTheatreInput: CreateTheatreInput!): Theatre!
+  updateTheatre(updateTheatreInput: UpdateTheatreInput!): Theatre!
+  removeTheatre(id: String!): Theatre!
 }
 
 input SignupInput {
@@ -106,4 +121,17 @@ input UpdateFunctionInput {
   room: String
   price: Float
   id: Int!
+}
+
+input CreateTheatreInput {
+  roomNumber: Float!
+  capacity: Float!
+  type: String!
+}
+
+input UpdateTheatreInput {
+  roomNumber: Float
+  capacity: Float
+  type: String
+  id: String!
 }

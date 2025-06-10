@@ -19,13 +19,13 @@ export class MoviesResolver {
   }
 
   @Query(() => [Movie])
-  @Auth(ValidRoles.ADMIN, ValidRoles.SELLER, ValidRoles.CLIENT)
+  @Auth(ValidRoles.ADMIN, ValidRoles.CLIENT)
   async findAllMovies(): Promise<Movie[]> {
     return this.moviesService.findAll();
   }
 
   @Query(() => Movie)
-  @Auth(ValidRoles.ADMIN, ValidRoles.SELLER, ValidRoles.CLIENT)
+  @Auth(ValidRoles.ADMIN, ValidRoles.CLIENT)
   async findMovieByTitle(
     @Args('title') title: string,
   ): Promise<Movie> {

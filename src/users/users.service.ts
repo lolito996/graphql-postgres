@@ -63,4 +63,32 @@ export class UsersService {
     throw new InternalServerErrorException('Please check server logs');
   }
 
+  async deleteById( id: string ): Promise<User> {
+    const user = await this.findOneById( id );
+    return await this.userRepository.remove( user );
+  }
+
+  async update( id: string, signupInput: SignupInput ): Promise<User> {
+    const user = await this.findOneById( id );
+    
+    try {
+      if (signupInput.password) {
+        signupInput.password = bcrypt.hashSync(signupInput.password, 10);
+      }
+      Object.assign(user, signupInput);
+      return await this.userRepository.save(user);
+    } catch (error) {
+      this.handleDBErrors(error);
+    }
+  }
+
+
+  async findAll(): Promise<User[]> {
+    try {
+      return await this.userRepository.find();
+    } catch (error) {
+      this.handleDBErrors(error);
+    }
+  }
+
 }

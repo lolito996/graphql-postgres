@@ -2,6 +2,9 @@ import { Resolver, Query, Args, Int, Mutation } from '@nestjs/graphql';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
 import { SignupInput } from '../auth/dto/signup.input';
+import { Auth } from 'src/auth/decorators/auth/auth.decorator';
+import { ValidRoles } from 'src/auth/enums/valid-roles.enum';
+import { UpdateUserInput } from './dto/update-user.input';
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -32,4 +35,29 @@ export class UsersResolver {
     }
 
   }
+  @Query(() => [User], { name: 'users' })
+    @Auth(ValidRoles.ADMIN, ValidRoles.CLIENT)
+      async findAll(): Promise<User[]> {
+    return this.usersService.findAll();
+  }
+
+  
+  
+  @Mutation(() => User, { name: 'updateUser' })
+  @Auth(ValidRoles.ADMIN, ValidRoles.CLIENT)
+  async updateUser(
+    @Args('id', { type: () => String }) id: string,
+    @Args('signupInput') signupInput: SignupInput,
+  ): Promise<User> {
+    return await this.usersService.update(id, signupInput);
+  }
+
+  @Mutation(() => User,{name: 'deleteUser'})
+  @Auth(ValidRoles.ADMIN)
+  async removeUser(
+    @Args('id', { type: () => String }) id: string,
+  ): Promise<User> {
+    return this.usersService.deleteById(id);
+  }
+    
 }

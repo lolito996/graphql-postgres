@@ -10,12 +10,12 @@ import { ValidRoles } from '../auth/enums/valid-roles.enum';
 export class FunctionResolver {
   constructor(private readonly functionService: FunctionService) {}
 
-  @Auth(ValidRoles.ADMIN, ValidRoles.SELLER, ValidRoles.CLIENT)
+  @Auth(ValidRoles.ADMIN, ValidRoles.CLIENT)
   @Query(() => [FunctionEntity])
   functions() {
     return this.functionService.findAll();
   }
-  @Auth(ValidRoles.ADMIN, ValidRoles.SELLER, ValidRoles.CLIENT)
+  @Auth(ValidRoles.ADMIN, ValidRoles.CLIENT)
   @Query(() => FunctionEntity)
   function(@Args('id', { type: () => Int }) id: number) {
     return this.functionService.findOne(id);
