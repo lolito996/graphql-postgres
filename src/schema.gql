@@ -29,11 +29,21 @@ type Movie {
   totalSalesValue: Float
 }
 
+type FunctionEntity {
+  id: Int!
+  movieTitle: String!
+  startTime: String!
+  room: String!
+  price: Float!
+}
+
 type Query {
   user(id: String!): User
   userByEmail(email: String!): User
   findAllMovies: [Movie!]!
   findMovieByTitle(title: String!): Movie!
+  functions: [FunctionEntity!]!
+  function(id: Int!): FunctionEntity!
 }
 
 type Mutation {
@@ -42,6 +52,8 @@ type Mutation {
   createUser(signupInput: SignupInput!): User!
   createMovie(createMovieInput: CreateMovieInput!): Movie!
   updateMovieByTitle(title: String!, updateMovieInput: UpdateMovieInput!): Movie!
+  createFunction(input: CreateFunctionInput!): FunctionEntity!
+  updateFunction(input: UpdateFunctionInput!): FunctionEntity!
 }
 
 input SignupInput {
@@ -79,4 +91,19 @@ input UpdateMovieInput {
   classification: String
   salesCount: Int
   totalSalesValue: Float
+}
+
+input CreateFunctionInput {
+  movieTitle: String!
+  startTime: String!
+  room: String!
+  price: Float!
+}
+
+input UpdateFunctionInput {
+  movieTitle: String
+  startTime: String
+  room: String
+  price: Float
+  id: Int!
 }

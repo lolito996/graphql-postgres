@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { MoviesModule } from './movies/movies.module';
+import { FunctionModule } from './functions/function.module';
 
 @Module({
   imports: [
@@ -27,7 +28,8 @@ import { MoviesModule } from './movies/movies.module';
     }),
     AuthModule,
     UsersModule,
-    MoviesModule
+    MoviesModule,
+    FunctionModule
   ],
   controllers: [],
   providers: [],
