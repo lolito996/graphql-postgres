@@ -16,8 +16,7 @@ import { FunctionModule } from './functions/function.module';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       playground: true,
-      introspection: true,
-
+      introspection: true
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -28,9 +27,7 @@ import { FunctionModule } from './functions/function.module';
       password: process.env.DB_PASSWORD,*/
       autoLoadEntities: true,
       synchronize: true,
-
-      url: process.env.DATABASE_URL,
-
+      url: process.env.DATABASE_URL
     }),
     AuthModule,
     UsersModule,
