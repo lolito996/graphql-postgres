@@ -90,8 +90,11 @@ query {
 ## Tipos de Documentos y Operaciones que recibe
 
 - Query: Para consultar información y llamar peticiones.
+- Mutations: Para crear entidades
 
 ### Ejemplo de Query
+
+#### Buscar la lista de películas
 
 ```bash
 query {
@@ -100,6 +103,17 @@ query {
     title
     genre
     duration
+  }
+}
+```
+#### Crear una película
+
+```bash
+mutation CreateMovie($createMovieInput: CreateMovieInput!) {
+  createMovie(createMovieInput: $createMovieInput) {
+    id
+    title
+    director
   }
 }
 ```
