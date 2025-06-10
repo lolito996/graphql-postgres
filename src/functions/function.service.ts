@@ -36,14 +36,23 @@ export class FunctionService {
 
 
   findAll(): Promise<FunctionEntity[]> {
-    return this.functionRepo.find();
-  }
+  return this.functionRepo.find({
+    relations: ['movie', 'theatre'],
+  });
+}
+
 
   async findOne(id: number): Promise<FunctionEntity> {
-    const func = await this.functionRepo.findOneBy({ id });
-    if (!func) throw new NotFoundException(`Function ${id} not found`);
-    return func;
-  }
+  const func = await this.functionRepo.findOne({
+    where: { id },
+    relations: ['movie', 'theatre'],
+  });
+
+  if (!func) throw new NotFoundException(`Function ${id} not found`);
+
+  return func;
+}
+
 
   async update(input: UpdateFunctionInput): Promise<FunctionEntity> {
   const func = await this.findOne(input.id);
