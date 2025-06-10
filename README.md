@@ -87,6 +87,24 @@ query {
 ✔️ Autenticación y autorización para proteger las rutas y operaciones.
 
 ---
+## Tipos de Documentos y Operaciones que recibe
+
+- Query: Para consultar información y llamar peticiones.
+
+### Ejemplo de Query
+
+```bash
+query {
+  findAllMovies {
+    id
+    title
+    genre
+    duration
+  }
+}
+```
+
+---
 
 ## Integrantes
 
