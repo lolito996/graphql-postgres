@@ -15,6 +15,22 @@ type AuthReponse {
   token: String!
 }
 
+type Theatre {
+  id: ID!
+  roomNumber: Float!
+  capacity: Float!
+  type: String!
+  functions: [FunctionEntity!]
+}
+
+type FunctionEntity {
+  id: Int!
+  startTime: String!
+  price: Float!
+  theatre: Theatre!
+  movie: Movie!
+}
+
 type Movie {
   id: ID!
   title: String!
@@ -27,21 +43,7 @@ type Movie {
   classification: String!
   salesCount: Int
   totalSalesValue: Float
-}
-
-type FunctionEntity {
-  id: Int!
-  movieTitle: String!
-  startTime: String!
-  room: String!
-  price: Float!
-}
-
-type Theatre {
-  id: ID!
-  roomNumber: Float!
-  capacity: Float!
-  type: String!
+  functions: [FunctionEntity!]
 }
 
 type Query {
@@ -64,8 +66,8 @@ type Mutation {
   deleteUser(id: String!): User!
   createMovie(createMovieInput: CreateMovieInput!): Movie!
   updateMovieByTitle(title: String!, updateMovieInput: UpdateMovieInput!): Movie!
-  createFunction(input: CreateFunctionInput!): FunctionEntity!
-  updateFunction(input: UpdateFunctionInput!): FunctionEntity!
+  createFunction(createFunctionInput: CreateFunctionInput!): FunctionEntity!
+  updateFunction(updateFunctionInput: UpdateFunctionInput!): FunctionEntity!
   createTheatre(createTheatreInput: CreateTheatreInput!): Theatre!
   updateTheatre(updateTheatreInput: UpdateTheatreInput!): Theatre!
   removeTheatre(id: String!): Theatre!
@@ -109,18 +111,18 @@ input UpdateMovieInput {
 }
 
 input CreateFunctionInput {
-  movieTitle: String!
+  movieId: String!
+  theatreId: String!
   startTime: String!
-  room: String!
   price: Float!
 }
 
 input UpdateFunctionInput {
-  movieTitle: String
-  startTime: String
-  room: String
-  price: Float
   id: Int!
+  movieId: String
+  theatreId: String
+  startTime: String
+  price: Float
 }
 
 input CreateTheatreInput {
