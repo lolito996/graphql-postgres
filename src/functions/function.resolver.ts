@@ -21,15 +21,19 @@ export class FunctionResolver {
     return this.functionService.findOne(id);
   }
 
-  @Auth(ValidRoles.ADMIN)
   @Mutation(() => FunctionEntity)
-  createFunction(@Args('input') input: CreateFunctionInput) {
-    return this.functionService.create(input);
+    createFunction(
+      @Args('createFunctionInput') createFunctionInput: CreateFunctionInput,
+    ): Promise<FunctionEntity> {
+    return this.functionService.create(createFunctionInput);
   }
 
   @Auth(ValidRoles.ADMIN)
   @Mutation(() => FunctionEntity)
-  updateFunction(@Args('input') input: UpdateFunctionInput) {
-    return this.functionService.update(input);
+  updateFunction(
+    @Args('updateFunctionInput') updateFunctionInput: UpdateFunctionInput,
+  ): Promise<FunctionEntity> {
+    return this.functionService.update(updateFunctionInput);
   }
+
 }
